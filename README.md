@@ -1,1 +1,1 @@
-Please read BugTracker Design document and run setupdatabase.sql
+Please read BugTracker Design document and run setupdb.sql
