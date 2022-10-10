@@ -1,0 +1,101 @@
+﻿@model BugTracker.Models.bugtracker
+
+
+@{
+    ViewData["Title"] = "Report Bug";
+}
+
+<h1>Create Issue</h1>
+
+<h4></h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label asp-for="Status" class="control-label"></label>
+                            <label class="form-control border-0 font-weight-bold">Open</label>
+                            <select asp-for="Status" asp-items="Html.GetEnumSelectList<Status>()" class="form-control" hidden="hidden"></select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label asp-for="CreationDate" class="control-label"></label>
+                            <label class="form-control border-0 font-weight-bold">@DateTime.Now.ToShortDateString() </label>
+                            <input type="Date" asp-for="CreationDate" class="form-control" value=@DateTime.Today.ToString("yyyy-MM-dd") hidden="hidden" />
+                            <span asp-validation-for="CreationDate" class="text-danger"></span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            
+           
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                @Html.TextAreaFor(model => model.Description, new { rows = "3", @class = "form-control" })
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label asp-for="ReportedBy" class="control-label"></label>
+                            @Html.DropDownList("ReportedBy", ((IEnumerable<SelectListItem>)ViewBag.User),  new { @class = "form-control", id="ReportedBy1"})
+                            <span asp-validation-for="ReportedBy" class="text-danger"></span>
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label asp-for="AssignedTo" class="control-label"></label>
+                            @Html.DropDownList("AssignedTo", (IEnumerable<SelectListItem>)ViewBag.User, new { @class = "form-control" })
+                            <span asp-validation-for="AssignedTo" class="text-danger"></span>
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+         
+           
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    function select_option(id, value_selected) {
+
+        var select;
+        select = document.getElementById(id);
+        if (select == null) return 0;
+
+        var option;
+        option = select.options.namedItem(value_selected);
+        if (option == null) return 0;
+
+        option.selected = "selected";
+        return true;
+    }
+    alert(TempData["UserID"].ToString())
+    select_option("ReportedBy1", TempData["UserID"].ToString());
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

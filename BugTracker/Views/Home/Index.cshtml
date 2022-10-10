@@ -1,0 +1,57 @@
+﻿@model BugTracker.Models.Ad_login;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Bug Tracker Application</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <form class="form-horizontal" asp-action="Index">
+                <div class="form-group">
+                    <label class="control-label">User ID</label>
+                    <input asp-for="Admin_id" class="form-control" type="text" value="admin" />
+                    <span asp-validation-for="Admin_id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Password</label>
+                    <input asp-for="Ad_Password" class="form-control" type="password" value="admin" id="passwordfield" />
+                    <span asp-validation-for="Ad_Password" class="text-danger"></span>
+                    <input type="checkbox" onclick="myFunction()" />Show Password
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+</div>
+@{
+    <script>
+
+        function myFunction() {
+            var x = document.getElementById("passwordfield");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+    <script>
+        document.getElementById("navbar").style.visibility = "hidden";
+    </script>
+    if (TempData["msg"] != null)
+    {
+        <script>
+           alert('@TempData["msg"]')
+        </script>
+    }
+}
